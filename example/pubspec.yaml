@@ -1,0 +1,27 @@
+name: example
+description: A flutter example app for flurry_navigation package.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flurry_navigation: ^0.1.0
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+    uses-material-design: true
+    assets:
+    - assets/expan1.png
+    - assets/set.png
+    - assets/doc.png
+    - assets/sta.png
+    - assets/hom.png
+    - assets/loc.png

@@ -1,0 +1,19 @@
+name: flurry_navigation
+description: A Smooth and Animated navigation package for flutter that doesn’t interfere with the Screen with adjustable colors, shapes, and navigation logic.
+version: 0.1.0
+author: Youssef Lasheen <ylasheen5@gmail.com>
+homepage:
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+    uses-material-design: true
