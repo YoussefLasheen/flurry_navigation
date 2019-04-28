@@ -3,14 +3,14 @@
 A Smooth and Animated navigation package for flutter that doesn’t interfere with the Screen with adjustable colors, shapes, and navigation logic.
 
 
-![this Image is not availple](/repo_files/flurry_navigation.gif)
+![this Image is not available](https://github.com/YoussefLasheen/flurry_navigation/blob/master/repo_files/flurry_navigation.gif)
 
 ## Getting Started
 First of all, Depend on the package.
 ```yaml
 dependencies:
   ...
-  flurry_navigation: ^0.1.0
+  flurry_navigation: ^0.1.0+hotfix.oopsie #Maybe not the latest version
 ```
 ### Changes to the Screens files
 Add your code inside this variable below in every screen you want to navigate.

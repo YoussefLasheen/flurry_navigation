@@ -63,22 +63,22 @@ class _FlurryNavigationState extends State<FlurryNavigation>
 
   zoomAndSlideContent(Widget content) {
     //slidePercent is not used right now but it may be used in future versions
-    var slidePercent, scalePercent;
+    var /*slidePercent, */scalePercent;
     switch (menuController.state) {
       case MenuState.closed:
-        slidePercent = 0.0;
+        //slidePercent = 0.0;
         scalePercent = 0.0;
         break;
       case MenuState.open:
-        slidePercent = 1.0;
+        //slidePercent = 1.0;
         scalePercent = 1.0;
         break;
       case MenuState.opening:
-        slidePercent = slideOutCurve.transform(menuController.percentOpen);
+        //slidePercent = slideOutCurve.transform(menuController.percentOpen);
         scalePercent = scaleDownCurve.transform(menuController.percentOpen);
         break;
       case MenuState.closing:
-        slidePercent = slideInCurve.transform(menuController.percentOpen);
+        //slidePercent = slideInCurve.transform(menuController.percentOpen);
         scalePercent = scaleUpCurve.transform(menuController.percentOpen);
         break;
     }
