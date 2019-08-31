@@ -30,10 +30,12 @@ class _MyHomePageState extends State<MyHomePage> {
   var activeScreen = firstscreen;
   Widget build(BuildContext context) {
     return new FlurryNavigation(
+      // The curve of the screen (Double)
+      curveRadius: (MediaQuery.of(context).size.width*MediaQuery.of(context).size.height)/4980,
       // The Icon data of the icon the BottomLeft
       expandIcon: Image.asset("assets/expan1.png"),
-      // The size of the icon on the BottomLeft
-      iconSize: 50.0,
+      // The size of the icon on the BottomLeft (Double)
+      iconSize: ((MediaQuery.of(context).size.width*MediaQuery.of(context).size.height)/15420),
       // The content of the screen
       contentScreen: activeScreen,
       menuScreen: new MenuScreen(
