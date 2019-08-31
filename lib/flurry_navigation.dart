@@ -4,9 +4,10 @@ class FlurryNavigation extends StatefulWidget {
   final Screen contentScreen;
   final Image expandIcon;
   final double iconSize;
+  final double curveRadius;
 
   FlurryNavigation(
-      {this.menuScreen, this.contentScreen, this.expandIcon, this.iconSize});
+      {this.menuScreen, this.contentScreen, this.expandIcon, this.iconSize,this.curveRadius});
 
   @override
   _FlurryNavigationState createState() => new _FlurryNavigationState();
@@ -86,7 +87,7 @@ class _FlurryNavigationState extends State<FlurryNavigation>
     double cornerRadius = 0;
     return OrientationBuilder(builder: (context, orientation) {
       contentScale = 1.0 - (0.3 * scalePercent);
-      cornerRadius = 260 * menuController.percentOpen;
+      cornerRadius = widget.curveRadius * menuController.percentOpen;
 
       return new Transform(
         transform: new Matrix4.translationValues(0.0, 0.0, 0.0)
