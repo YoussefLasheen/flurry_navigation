@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flurry_navigation/flurry_navigation.dart';
 
 final menuScreenKey = new GlobalKey(debugLabel: 'MenuScreen');
 
-var color1 = Color(0xFF6559d4);
-var color2 = Color(0xFF6559d4);
-var profileImage = NetworkImage(
-    'https://static1.squarespace.com/static/55f45174e4b0fb5d95b07f39/t/5aec4511aa4a991e53e6c044/1525433627644/Alexandra+Agoston+archives.jpg?format=1000w');
+
 var notificationsCardsList = [
   ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
   ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
@@ -16,6 +12,7 @@ var notificationsCardsList = [
   ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
   ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
 ];
+
 var favouriteItemsCardsList = [
   ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
   ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
@@ -41,11 +38,11 @@ var cartCardsList = [
   ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
 ];
 
-class MyMenu extends StatefulWidget {
+class FullMenu extends StatefulWidget {
   final Menu menu;
   final Function(String) onMenuItemSelected;
   final Color bgColor;
-  MyMenu({
+  FullMenu({
     this.menu,
     this.onMenuItemSelected,
     this.bgColor,
@@ -207,7 +204,7 @@ class ItemCard extends StatelessWidget {
   }
 }
 
-class CustomRadioState extends State<MyMenu> {
+class CustomRadioState extends State<FullMenu> {
   List<RadioModel> sampleData = new List<RadioModel>();
 
   @override
