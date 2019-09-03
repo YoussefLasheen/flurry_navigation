@@ -3,28 +3,6 @@ import 'package:flurry_navigation/flurry_navigation.dart';
 
 final menuScreenKey = new GlobalKey(debugLabel: 'MenuScreen');
 
-var cardsList = [
-  [
-    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
-        Colors.transparent, Text("Adham")),
-    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
-        Colors.transparent, Text("Adham")),
-    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
-        Colors.transparent, Text("Adham")),
-    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
-        Colors.transparent, Text("Adham")),
-  ],
-  [
-    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
-        Colors.transparent, Text("Adham")),
-    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
-        Colors.transparent, Text("Adham")),
-    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
-        Colors.transparent, Text("Adham")),
-    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
-        Colors.transparent, Text("Adham")),
-  ]
-];
 
 class FullMenu extends StatefulWidget {
   final Menu menu;
@@ -115,8 +93,9 @@ class FullMenuState extends State<FullMenu> {
 }
 
 class BottomSection extends StatefulWidget {
+  final List cards;
   const BottomSection({
-    Key key,
+    Key key, this.cards,
   }) : super(key: key);
 
   @override
@@ -135,7 +114,7 @@ class _BottomSectionState extends State<BottomSection> {
               pageSnapping: true,
               scrollDirection: Axis.vertical,
               children: <Widget>[
-                for (var i = 0; i < cardsList.length; ++i)
+                for (var i = 0; i < widget.cards.length; ++i)
                   {
                     ListView.separated(
                         scrollDirection: Axis.horizontal,
@@ -146,8 +125,8 @@ class _BottomSectionState extends State<BottomSection> {
                               endIndent: 5,
                               indent: 5,
                             ),
-                        itemCount: cardsList[i].length,
-                        itemBuilder: (context, index) => cardsList[i][index]),
+                        itemCount: widget.cards[i].length,
+                        itemBuilder: (context, index) => widget.cards[i][index]),
                   }
               ],
             )),
