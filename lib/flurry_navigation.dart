@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class FlurryNavigation extends StatefulWidget {
   final Widget menuScreen;
   final Screen contentScreen;
@@ -7,7 +8,11 @@ class FlurryNavigation extends StatefulWidget {
   final double curveRadius;
 
   FlurryNavigation(
-      {this.menuScreen, this.contentScreen, this.expandIcon, this.iconSize,this.curveRadius});
+      {this.menuScreen,
+      this.contentScreen,
+      this.expandIcon,
+      this.iconSize,
+      this.curveRadius});
 
   @override
   _FlurryNavigationState createState() => new _FlurryNavigationState();
@@ -64,7 +69,7 @@ class _FlurryNavigationState extends State<FlurryNavigation>
 
   zoomAndSlideContent(Widget content) {
     //slidePercent is not used right now but it may be used in future versions
-    var /*slidePercent, */scalePercent;
+    var /*slidePercent, */ scalePercent;
     switch (menuController.state) {
       case MenuState.closed:
         //slidePercent = 0.0;
