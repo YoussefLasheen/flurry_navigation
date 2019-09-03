@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'flurry_navigation.dart';
+import 'package:flurry_navigation/flurry_navigation.dart';
 
 final menuScreenKey = new GlobalKey(debugLabel: 'MenuScreen');
 
-class MenuScreen extends StatefulWidget {
+class EssentialMenu extends StatefulWidget {
   final Menu menu;
   final Function(String) onMenuItemSelected;
   final Color bgColor;
-  MenuScreen({
+  EssentialMenu({
     this.menu,
     this.onMenuItemSelected,
     this.bgColor,
@@ -18,7 +18,7 @@ class MenuScreen extends StatefulWidget {
   }
 }
 
-class CustomRadioState extends State<MenuScreen> {
+class CustomRadioState extends State<EssentialMenu> {
   List<RadioModel> sampleData = new List<RadioModel>();
 
   @override
