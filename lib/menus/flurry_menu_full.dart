@@ -3,39 +3,27 @@ import 'package:flurry_navigation/flurry_navigation.dart';
 
 final menuScreenKey = new GlobalKey(debugLabel: 'MenuScreen');
 
-
-var notificationsCardsList = [
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-];
-
-var favouriteItemsCardsList = [
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-  ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent, Colors.transparent, Text("Adham")),
-];
-
-var latestTransactionsCardsList = [
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
-];
-
-var cartCardsList = [
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
-  ItemCard(Icons.local_offer, 'bebi', '466', Colors.yellow, Colors.brown, null),
+var cardsList = [
+  [
+    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
+        Colors.transparent, Text("Adham")),
+    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
+        Colors.transparent, Text("Adham")),
+    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
+        Colors.transparent, Text("Adham")),
+    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
+        Colors.transparent, Text("Adham")),
+  ],
+  [
+    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
+        Colors.transparent, Text("Adham")),
+    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
+        Colors.transparent, Text("Adham")),
+    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
+        Colors.transparent, Text("Adham")),
+    ItemCard(Icons.local_offer, 'Socks', '23.3', Colors.transparent,
+        Colors.transparent, Text("Adham")),
+  ]
 ];
 
 class FullMenu extends StatefulWidget {
@@ -49,7 +37,80 @@ class FullMenu extends StatefulWidget {
   }) : super(key: menuScreenKey);
   @override
   createState() {
-    return new CustomRadioState();
+    return new FullMenuState();
+  }
+}
+
+class FullMenuState extends State<FullMenu> {
+  List<RadioModel> sampleData = new List<RadioModel>();
+
+  @override
+  void initState() {
+    super.initState();
+    for (var i = 0; i < widget.menu.items.length; ++i) {
+      sampleData.add(new RadioModel(
+        widget.menu.items[i].isSelected,
+        widget.menu.items[i].icon,
+        widget.menu.items[i].id,
+        widget.menu.items[i].selectedBtnColor,
+        widget.menu.items[i].disabledBtnColor,
+        widget.menu.items[i].selectedShadowColor,
+        widget.menu.items[i].disabledShadowColor,
+        widget.menu.items[i].btnShape,
+      ));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: widget.bgColor,
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 14,
+            child: FlurryNavigationMenuController(
+              builder: (BuildContext context, MenuController menuController) {
+                return Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 6,
+                      child: ListView.builder(
+                        padding: EdgeInsets.only(top: 50),
+                        itemCount: sampleData.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return new InkWell(
+                            splashColor: Colors.transparent,
+                            onTap: () {
+                              widget.onMenuItemSelected(sampleData[index].id);
+                              setState(() {
+                                sampleData.forEach(
+                                    (element) => element.isSelected = false);
+                                sampleData[index].isSelected = true;
+                              });
+                              menuController.close();
+                            },
+                            child: new RadioItem(sampleData[index]),
+                          );
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(),
+                      flex: 14,
+                    )
+                  ],
+                );
+              },
+            ),
+          ),
+          Expanded(
+            child: BottomSection(),
+            flex: 6,
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -74,54 +135,20 @@ class _BottomSectionState extends State<BottomSection> {
               pageSnapping: true,
               scrollDirection: Axis.vertical,
               children: <Widget>[
-                ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        VerticalDivider(
-                          color: Colors.black54,
-                          width: 10,
-                          endIndent: 5,
-                          indent: 5,
-                        ),
-                    itemCount: notificationsCardsList.length,
-                    itemBuilder: (context, index) =>
-                        notificationsCardsList[index]),
-                ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        VerticalDivider(
-                          color: Colors.black54,
-                          width: 10,
-                          endIndent: 5,
-                          indent: 5,
-                        ),
-                    itemCount: latestTransactionsCardsList.length,
-                    itemBuilder: (context, index) =>
-                        latestTransactionsCardsList[index]),
-                ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        VerticalDivider(
-                          color: Colors.black54,
-                          width: 10,
-                          endIndent: 5,
-                          indent: 5,
-                        ),
-                    itemCount: latestTransactionsCardsList.length,
-                    itemBuilder: (context, index) =>
-                        latestTransactionsCardsList[index]),
-                ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        VerticalDivider(
-                          color: Colors.black54,
-                          width: 10,
-                          endIndent: 5,
-                          indent: 5,
-                        ),
-                    itemCount: latestTransactionsCardsList.length,
-                    itemBuilder: (context, index) =>
-                        latestTransactionsCardsList[index]),
+                for (var i = 0; i < cardsList.length; ++i)
+                  {
+                    ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            VerticalDivider(
+                              color: Colors.black54,
+                              width: 10,
+                              endIndent: 5,
+                              indent: 5,
+                            ),
+                        itemCount: cardsList[i].length,
+                        itemBuilder: (context, index) => cardsList[i][index]),
+                  }
               ],
             )),
         Divider(
@@ -204,78 +231,6 @@ class ItemCard extends StatelessWidget {
   }
 }
 
-class CustomRadioState extends State<FullMenu> {
-  List<RadioModel> sampleData = new List<RadioModel>();
-
-  @override
-  void initState() {
-    super.initState();
-    for (var i = 0; i < widget.menu.items.length; ++i) {
-      sampleData.add(new RadioModel(
-        widget.menu.items[i].isSelected,
-        widget.menu.items[i].icon,
-        widget.menu.items[i].id,
-        widget.menu.items[i].selectedBtnColor,
-        widget.menu.items[i].disabledBtnColor,
-        widget.menu.items[i].selectedShadowColor,
-        widget.menu.items[i].disabledShadowColor,
-        widget.menu.items[i].btnShape,
-      ));
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new FlurryNavigationMenuController(
-      builder: (BuildContext context, MenuController menuController) {
-        return new Scaffold(
-          backgroundColor: widget.bgColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                  flex: 14,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 6,
-                        child: ListView.builder(
-                          padding: EdgeInsets.only(top: 50),
-                          itemCount: sampleData.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return new InkWell(
-                              splashColor: Colors.transparent,
-                              onTap: () {
-                                widget.onMenuItemSelected(sampleData[index].id);
-                                setState(() {
-                                  sampleData.forEach(
-                                      (element) => element.isSelected = false);
-                                  sampleData[index].isSelected = true;
-                                });
-                                menuController.close();
-                              },
-                              child: new RadioItem(sampleData[index]),
-                            );
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(),
-                        flex: 14,
-                      )
-                    ],
-                  )),
-              Expanded(
-                child: BottomSection(),
-                flex: 6,
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
 class RadioItem extends StatelessWidget {
   final RadioModel _item;
   RadioItem(this._item);
@@ -291,7 +246,7 @@ class RadioItem extends StatelessWidget {
           flex: 3,
           child: new Container(
             alignment: Alignment.center,
-            height: MediaQuery.of(context).size.width * 0.3*(3/5),
+            height: MediaQuery.of(context).size.width * 0.3 * (3 / 5),
             child: FractionallySizedBox(
               heightFactor: 0.6,
               widthFactor: 0.6,
