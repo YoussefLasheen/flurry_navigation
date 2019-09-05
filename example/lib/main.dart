@@ -39,8 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
       contentScreen: activeScreen,
       menuScreen: new FlurryMenu(
         bgColor: Color.fromRGBO(121, 134, 203, 1),
-
-        bottomSection: BottomSection(),
+      // The content of the bottom sction of the menu screen
+        bottomSection: BottomSection(), //BottomSection() Class is an example of what you can use
         menu: new SideMenu(
           items: [
             new SideMenuItem(
