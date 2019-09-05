@@ -4,22 +4,24 @@ import 'package:flurry_navigation/flurry_navigation.dart';
 final menuScreenKey = new GlobalKey(debugLabel: 'MenuScreen');
 
 
-class FullMenu extends StatefulWidget {
-  final Menu menu;
+class FlurryMenu extends StatefulWidget {
+  final SideMenu menu;
   final Function(String) onMenuItemSelected;
   final Color bgColor;
-  FullMenu({
+  final Widget bottomSection;
+  FlurryMenu({
     this.menu,
     this.onMenuItemSelected,
     this.bgColor,
+    this.bottomSection
   }) : super(key: menuScreenKey);
   @override
   createState() {
-    return new FullMenuState();
+    return new FlurryMenuState();
   }
 }
 
-class FullMenuState extends State<FullMenu> {
+class FlurryMenuState extends State<FlurryMenu> {
   List<RadioModel> sampleData = new List<RadioModel>();
 
   @override
@@ -83,7 +85,7 @@ class FullMenuState extends State<FullMenu> {
             ),
           ),
           Expanded(
-            child: BottomSection(),
+            child: widget.bottomSection,
             flex: 6,
           ),
         ],
@@ -92,123 +94,6 @@ class FullMenuState extends State<FullMenu> {
   }
 }
 
-class BottomSection extends StatefulWidget {
-  final List cards;
-  const BottomSection({
-    Key key, this.cards,
-  }) : super(key: key);
-
-  @override
-  _BottomSectionState createState() => _BottomSectionState();
-}
-
-class _BottomSectionState extends State<BottomSection> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-            height: (MediaQuery.of(context).size.height * 0.22),
-            child: PageView(
-              physics: BouncingScrollPhysics(),
-              pageSnapping: true,
-              scrollDirection: Axis.vertical,
-              children: <Widget>[
-                for (var i = 0; i < widget.cards.length; ++i)
-                  {
-                    ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        separatorBuilder: (BuildContext context, int index) =>
-                            VerticalDivider(
-                              color: Colors.black54,
-                              width: 10,
-                              endIndent: 5,
-                              indent: 5,
-                            ),
-                        itemCount: widget.cards[i].length,
-                        itemBuilder: (context, index) => widget.cards[i][index]),
-                  }
-              ],
-            )),
-        Divider(
-          height: 1,
-          color: Colors.black54,
-          indent: 5,
-          endIndent: 5,
-        ),
-        Row(
-          children: <Widget>[
-            FlatButton(
-              child: Text("Sign In"),
-              color: Colors.transparent,
-            ),
-            Spacer(),
-            FlatButton(
-              child: Text("Settings"),
-              color: Colors.transparent,
-            )
-          ],
-        )
-      ],
-    );
-  }
-}
-
-class ItemCard extends StatelessWidget {
-  final content;
-  final icon;
-  final name;
-  final tasks;
-  final color1;
-  final color2;
-  const ItemCard(
-      this.icon, this.name, this.tasks, this.color1, this.color2, this.content);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: (MediaQuery.of(context).size.width * 0.3),
-      decoration: BoxDecoration(
-          borderRadius: new BorderRadius.only(
-            topLeft: Radius.circular(MediaQuery.of(context).size.height *
-                MediaQuery.of(context).size.width /
-                4980),
-          ),
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [color1, color2])),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Icon(
-              icon,
-              color: Colors.white,
-            ),
-            Expanded(
-              child: Container(
-                child: content,
-              ),
-            ),
-            Text(
-              name,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 4.0,
-            ),
-            Text(
-              tasks,
-              style: TextStyle(color: Colors.white.withOpacity(0.6)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class RadioItem extends StatelessWidget {
   final RadioModel _item;
@@ -261,7 +146,7 @@ class RadioItem extends StatelessWidget {
   }
 }
 
-class MenuItem {
+class SideMenuItem {
   final bool isSelected;
   final String icon;
   final String id;
@@ -271,7 +156,7 @@ class MenuItem {
   Color disabledShadowColor;
   BoxShape btnShape;
 
-  MenuItem(
+  SideMenuItem(
       {this.icon,
       this.id,
       this.isSelected,
@@ -302,10 +187,10 @@ class RadioModel {
       this.btnShape);
 }
 
-class Menu {
-  final List<MenuItem> items;
+class SideMenu {
+  final List<SideMenuItem> items;
 
-  Menu({
+  SideMenu({
     this.items,
   });
 }
