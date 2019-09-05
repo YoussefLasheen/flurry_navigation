@@ -6,6 +6,7 @@ import 'package:example/second screen.dart';
 import 'package:example/first screen.dart';
 import 'package:flurry_navigation/flurry_navigation.dart';
 import 'package:flurry_navigation/flurry_menu.dart';
+import 'bottom_section.dart';
 
 void main() => runApp(new MyApp());
 
@@ -24,47 +25,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
-
   //Decalre active screen var with the the default screen somewhere accesible to the contentScreen attributes
   var activeScreen = firstscreen;
   Widget build(BuildContext context) {
     return new FlurryNavigation(
       // The curve of the screen (Double)
-      curveRadius: (MediaQuery.of(context).size.width*MediaQuery.of(context).size.height)/4980,
+      curveRadius: (MediaQuery.of(context).size.width *MediaQuery.of(context).size.height)/4980,
       // The Icon data of the icon the BottomLeft
       expandIcon: Image.asset("assets/expan1.png"),
       // The size of the icon on the BottomLeft (Double)
-      iconSize: ((MediaQuery.of(context).size.width*MediaQuery.of(context).size.height)/15420),
+      iconSize: ((MediaQuery.of(context).size.width * MediaQuery.of(context).size.height)/15420),
       // The content of the screen
       contentScreen: activeScreen,
-      menuScreen: new MenuScreen(
+      menuScreen: new FlurryMenu(
         bgColor: Color.fromRGBO(121, 134, 203, 1),
-        menu: new Menu(
+
+        bottomSection: BottomSection(),
+        menu: new SideMenu(
           items: [
-            new MenuItem(
-                id:'hom', //You can set this to whatever you want but dont duplicate it
-                icon:'assets/hom.png', //Set this to the data for the icon of the button
-                isSelected: true,
-                selectedBtnColor: Color.fromRGBO(38, 198, 218, 1),
-                btnShape: BoxShape.rectangle),
-            new MenuItem(
-                id: 'sta',
-                icon: 'assets/sta.png',
-                isSelected: false,
-                selectedBtnColor: Color.fromRGBO(38, 198, 218, 1),
-                btnShape: BoxShape.rectangle),
-            new MenuItem(
-              id: 'doc',
-              icon: 'assets/doc.png',
+            new SideMenuItem(
+              id:'hom', //You can set this to whatever you want but dont duplicate it
+              icon:'assets/hom.png', //Set this to the data for the icon of the button
+              isSelected: true,
+              selectedBtnColor: Color.fromRGBO(38, 198, 218, 1),
+              btnShape: BoxShape.rectangle),
+            new SideMenuItem(
+              id: 'sta',
+              icon: 'assets/sta.png',
+              isSelected: false,
+              selectedBtnColor: Color.fromRGBO(38, 198, 218, 1),
+              btnShape: BoxShape.rectangle),
+            new SideMenuItem(
+              id:'doc',
+              icon:'assets/doc.png',
               isSelected: false,
               selectedBtnColor: Color.fromRGBO(38, 198, 218, 1),
             ),
-            new MenuItem(
-              id: 'set',
-              icon: 'assets/set.png',
-              isSelected: false,
-              selectedBtnColor: Color.fromRGBO(38, 198, 218, 1),
+            new SideMenuItem(
+              id:'set',
+              icon:'assets/set.png',
+              isSelected:false,
+              selectedBtnColor:Color.fromRGBO(38, 198, 218, 1),
             ),
           ],
         ),
