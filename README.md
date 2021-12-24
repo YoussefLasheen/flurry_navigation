@@ -10,7 +10,7 @@ First of all, Depend on the package.
 ```yaml
 dependencies:
   ...
-  flurry_navigation: ^0.1.0+hotfix.oopsie #Maybe not the latest version
+  flurry_navigation: ^0.2.0 #May not be the latest version
 ```
 ### Changes to the Screens files
 Add your code inside this variable below in every screen you want to navigate.
