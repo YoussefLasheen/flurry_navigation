@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class FlurryNavigation extends StatefulWidget {
-  final Widget menuScreen;
-  final Screen contentScreen;
-  final Image expandIcon;
-  final double iconSize;
-  final double curveRadius;
+  final Widget? menuScreen;
+  final Screen? contentScreen;
+  final Image? expandIcon;
+  final double? iconSize;
+  final double? curveRadius;
 
   FlurryNavigation(
       {this.menuScreen,
@@ -20,7 +20,7 @@ class FlurryNavigation extends StatefulWidget {
 
 class _FlurryNavigationState extends State<FlurryNavigation>
     with TickerProviderStateMixin {
-  MenuController menuController;
+  MenuController? menuController;
   Curve scaleDownCurve = new Interval(0.0, 1.0, curve: Curves.linear);
   Curve scaleUpCurve = new Interval(0.0, 1.0, curve: Curves.linear);
   Curve slideOutCurve = new Interval(0.0, 1.0, curve: Curves.elasticOut);
@@ -37,7 +37,7 @@ class _FlurryNavigationState extends State<FlurryNavigation>
 
   @override
   void dispose() {
-    menuController.dispose();
+    menuController!.dispose();
     super.dispose();
   }
 
@@ -47,18 +47,18 @@ class _FlurryNavigationState extends State<FlurryNavigation>
         child: new Scaffold(
             body: Column(children: <Widget>[
           Expanded(
-            child: widget.contentScreen.contentBuilder(context),
+            child: widget.contentScreen!.contentBuilder!(context),
           ),
           Row(
             children: <Widget>[
               IconButton(
-                icon: widget.expandIcon,
+                icon: widget.expandIcon!,
                 onPressed: () {
-                  menuController.toggle();
+                  menuController!.toggle();
                 },
                 alignment: Alignment.bottomLeft,
                 padding: EdgeInsets.all(0),
-                iconSize: widget.iconSize,
+                iconSize: widget.iconSize!,
               )
             ],
           ),
@@ -69,8 +69,8 @@ class _FlurryNavigationState extends State<FlurryNavigation>
 
   zoomAndSlideContent(Widget content) {
     //slidePercent is not used right now but it may be used in future versions
-    var /*slidePercent, */ scalePercent;
-    switch (menuController.state) {
+    late var /*slidePercent, */ scalePercent;
+    switch (menuController!.state) {
       case MenuState.closed:
         //slidePercent = 0.0;
         scalePercent = 0.0;
@@ -81,18 +81,18 @@ class _FlurryNavigationState extends State<FlurryNavigation>
         break;
       case MenuState.opening:
         //slidePercent = slideOutCurve.transform(menuController.percentOpen);
-        scalePercent = scaleDownCurve.transform(menuController.percentOpen);
+        scalePercent = scaleDownCurve.transform(menuController!.percentOpen);
         break;
       case MenuState.closing:
         //slidePercent = slideInCurve.transform(menuController.percentOpen);
-        scalePercent = scaleUpCurve.transform(menuController.percentOpen);
+        scalePercent = scaleUpCurve.transform(menuController!.percentOpen);
         break;
     }
     var contentScale;
     double cornerRadius = 0;
     return OrientationBuilder(builder: (context, orientation) {
       contentScale = 1.0 - (0.3 * scalePercent);
-      cornerRadius = widget.curveRadius * menuController.percentOpen;
+      cornerRadius = widget.curveRadius! * menuController!.percentOpen;
 
       return new Transform(
         transform: new Matrix4.translationValues(0.0, 0.0, 0.0)
@@ -112,7 +112,7 @@ class _FlurryNavigationState extends State<FlurryNavigation>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        widget.menuScreen,
+        widget.menuScreen!,
         createContentDisplay(),
       ],
     );
@@ -120,7 +120,7 @@ class _FlurryNavigationState extends State<FlurryNavigation>
 }
 
 class FlurryNavigationMenuController extends StatefulWidget {
-  final FlurryNavigationBuilder builder;
+  final FlurryNavigationBuilder? builder;
 
   FlurryNavigationMenuController({
     this.builder,
@@ -134,25 +134,25 @@ class FlurryNavigationMenuController extends StatefulWidget {
 
 class FlurryNavigationMenuControllerState
     extends State<FlurryNavigationMenuController> {
-  MenuController menuController;
+  MenuController? menuController;
 
   @override
   void initState() {
     super.initState();
 
     menuController = getMenuController(context);
-    menuController.addListener(_onMenuControllerChange);
+    menuController!.addListener(_onMenuControllerChange);
   }
 
   @override
   void dispose() {
-    menuController.removeListener(_onMenuControllerChange);
+    menuController!.removeListener(_onMenuControllerChange);
     super.dispose();
   }
 
   getMenuController(BuildContext context) {
     final navigationState =
-        context.findAncestorStateOfType<_FlurryNavigationState>();
+        context.findAncestorStateOfType<_FlurryNavigationState>()!;
     return navigationState.menuController;
   }
 
@@ -162,15 +162,15 @@ class FlurryNavigationMenuControllerState
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context, getMenuController(context));
+    return widget.builder!(context, getMenuController(context));
   }
 }
 
 typedef Widget FlurryNavigationBuilder(
-    BuildContext context, MenuController menuController);
+    BuildContext context, MenuController? menuController);
 
 class Screen {
-  final WidgetBuilder contentBuilder;
+  final WidgetBuilder? contentBuilder;
 
   Screen({
     this.contentBuilder,
@@ -183,7 +183,7 @@ class MenuController extends ChangeNotifier {
   MenuState state = MenuState.closed;
 
   MenuController({
-    this.vsync,
+    required this.vsync,
   }) : _animationController = new AnimationController(vsync: vsync) {
     _animationController
       ..duration = const Duration(milliseconds: 300)

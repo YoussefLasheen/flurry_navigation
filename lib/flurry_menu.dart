@@ -5,10 +5,10 @@ final menuScreenKey = new GlobalKey(debugLabel: 'MenuScreen');
 
 
 class FlurryMenu extends StatefulWidget {
-  final SideMenu menu;
-  final Function(String) onMenuItemSelected;
-  final Color bgColor;
-  final Widget bottomSection;
+  final SideMenu? menu;
+  final Function(String?)? onMenuItemSelected;
+  final Color? bgColor;
+  final Widget? bottomSection;
   FlurryMenu({
     this.menu,
     this.onMenuItemSelected,
@@ -22,21 +22,21 @@ class FlurryMenu extends StatefulWidget {
 }
 
 class FlurryMenuState extends State<FlurryMenu> {
-  List<RadioModel> sampleData = new List<RadioModel>();
+  List<RadioModel> sampleData = [];
 
   @override
   void initState() {
     super.initState();
-    for (var i = 0; i < widget.menu.items.length; ++i) {
+    for (var i = 0; i < widget.menu!.items!.length; ++i) {
       sampleData.add(new RadioModel(
-        widget.menu.items[i].isSelected,
-        widget.menu.items[i].icon,
-        widget.menu.items[i].id,
-        widget.menu.items[i].selectedBtnColor,
-        widget.menu.items[i].disabledBtnColor,
-        widget.menu.items[i].selectedShadowColor,
-        widget.menu.items[i].disabledShadowColor,
-        widget.menu.items[i].btnShape,
+        widget.menu!.items![i].isSelected,
+        widget.menu!.items![i].icon,
+        widget.menu!.items![i].id,
+        widget.menu!.items![i].selectedBtnColor,
+        widget.menu!.items![i].disabledBtnColor,
+        widget.menu!.items![i].selectedShadowColor,
+        widget.menu!.items![i].disabledShadowColor,
+        widget.menu!.items![i].btnShape,
       ));
     }
   }
@@ -50,7 +50,7 @@ class FlurryMenuState extends State<FlurryMenu> {
           Expanded(
             flex: 14,
             child: FlurryNavigationMenuController(
-              builder: (BuildContext context, MenuController menuController) {
+              builder: (BuildContext context, MenuController? menuController) {
                 return Row(
                   children: <Widget>[
                     Expanded(
@@ -62,13 +62,13 @@ class FlurryMenuState extends State<FlurryMenu> {
                           return new InkWell(
                             splashColor: Colors.transparent,
                             onTap: () {
-                              widget.onMenuItemSelected(sampleData[index].id);
+                              widget.onMenuItemSelected!(sampleData[index].id);
                               setState(() {
                                 sampleData.forEach(
                                     (element) => element.isSelected = false);
                                 sampleData[index].isSelected = true;
                               });
-                              menuController.close();
+                              menuController!.close();
                             },
                             child: new RadioItem(sampleData[index]),
                           );
@@ -85,7 +85,7 @@ class FlurryMenuState extends State<FlurryMenu> {
             ),
           ),
           Expanded(
-            child: widget.bottomSection,
+            child: widget.bottomSection!,
             flex: 6,
           ),
         ],
@@ -115,19 +115,20 @@ class RadioItem extends StatelessWidget {
               heightFactor: 0.6,
               widthFactor: 0.6,
               child: IconButton(
-                icon: Image.asset(_item.icon),
+                icon: Image.asset(_item.icon!),
                 padding: EdgeInsets.all(0),
+                onPressed: null,
               ),
             ),
             decoration: new BoxDecoration(
-              color: _item.isSelected
+              color: _item.isSelected!
                   ? _item.selectedBtnColor
                   : _item.disabledBtnColor,
               border: new Border.all(width: 1.0, color: Colors.transparent),
               shape: _item.btnShape,
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                    color: _item.isSelected
+                    color: _item.isSelected!
                         ? _item.selectedShadowColor
                         : _item.disabledShadowColor,
                     offset: Offset(0, 5.0),
@@ -147,10 +148,10 @@ class RadioItem extends StatelessWidget {
 }
 
 class SideMenuItem {
-  final bool isSelected;
-  final String icon;
-  final String id;
-  final Color selectedBtnColor;
+  final bool? isSelected;
+  final String? icon;
+  final String? id;
+  final Color? selectedBtnColor;
   Color disabledBtnColor;
   Color selectedShadowColor;
   Color disabledShadowColor;
@@ -168,10 +169,10 @@ class SideMenuItem {
 }
 
 class RadioModel {
-  bool isSelected;
-  final String icon;
-  final String id;
-  final Color selectedBtnColor;
+  bool? isSelected;
+  final String? icon;
+  final String? id;
+  final Color? selectedBtnColor;
   final Color disabledBtnColor;
   final Color selectedShadowColor;
   final Color disabledShadowColor;
@@ -188,7 +189,7 @@ class RadioModel {
 }
 
 class SideMenu {
-  final List<SideMenuItem> items;
+  final List<SideMenuItem>? items;
 
   SideMenu({
     this.items,
