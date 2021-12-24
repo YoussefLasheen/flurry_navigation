@@ -59,10 +59,11 @@ class FlurryMenuState extends State<FlurryMenu> {
                         padding: EdgeInsets.only(top: 50),
                         itemCount: sampleData.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return new InkWell(
-                            splashColor: Colors.transparent,
-                            onTap: () {
-                              widget.onMenuItemSelected!(sampleData[index].id);
+                          return RadioItem(
+                            item: sampleData[index],
+                            onSelected: () {
+                              widget
+                                  .onMenuItemSelected!(sampleData[index].id);
                               setState(() {
                                 sampleData.forEach(
                                     (element) => element.isSelected = false);
@@ -70,7 +71,6 @@ class FlurryMenuState extends State<FlurryMenu> {
                               });
                               menuController!.close();
                             },
-                            child: new RadioItem(sampleData[index]),
                           );
                         },
                       ),
@@ -96,8 +96,9 @@ class FlurryMenuState extends State<FlurryMenu> {
 
 
 class RadioItem extends StatelessWidget {
-  final RadioModel _item;
-  RadioItem(this._item);
+  final RadioModel item;
+  final void Function()? onSelected;
+  RadioItem({required this.item, required this.onSelected});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -115,22 +116,22 @@ class RadioItem extends StatelessWidget {
               heightFactor: 0.6,
               widthFactor: 0.6,
               child: IconButton(
-                icon: Image.asset(_item.icon!),
+                icon: Image.asset(item.icon!),
                 padding: EdgeInsets.all(0),
-                onPressed: null,
+                onPressed: onSelected,
               ),
             ),
             decoration: new BoxDecoration(
-              color: _item.isSelected!
-                  ? _item.selectedBtnColor
-                  : _item.disabledBtnColor,
+              color: item.isSelected!
+                  ? item.selectedBtnColor
+                  : item.disabledBtnColor,
               border: new Border.all(width: 1.0, color: Colors.transparent),
-              shape: _item.btnShape,
+              shape: item.btnShape,
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                    color: _item.isSelected!
-                        ? _item.selectedShadowColor
-                        : _item.disabledShadowColor,
+                    color: item.isSelected!
+                        ? item.selectedShadowColor
+                        : item.disabledShadowColor,
                     offset: Offset(0, 5.0),
                     blurRadius: 5.0,
                     spreadRadius: 1),
