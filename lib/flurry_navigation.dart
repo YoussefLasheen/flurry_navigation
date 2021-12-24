@@ -152,8 +152,7 @@ class FlurryNavigationMenuControllerState
 
   getMenuController(BuildContext context) {
     final navigationState =
-        context.ancestorStateOfType(new TypeMatcher<_FlurryNavigationState>())
-            as _FlurryNavigationState;
+        context.findAncestorStateOfType<_FlurryNavigationState>();
     return navigationState.menuController;
   }
 
